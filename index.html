@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Survey Form</title>
+        <link rel="stylesheet" href="styles.css" />
+    </head>
+    <body>
+        <h1 id="title">Survey Form</h1>
+        <form id="survey-form">
+            <fieldset>
+                <h2>General Information</h2>
+                <label for="name" id="name-label">
+                    Name
+                    <input id="name" type="text" placeholder="Enter your name">
+                </label>
+                <label for="email" id="email-label">
+                    Email
+                    <input id="email" type="email" placeholder="Enter your email">
+                </label>
+                <label for="number" id="number-label">
+                    Age (optional)
+                    <input id="number" type="number" placeholder="Age">
+                </label>
+                <label for="dropdown" id="dropdown-label">
+                    Contact Info
+                    <select id="dropdown">
+                        <option value="">Select one</option>
+                        <option value="1">Mail</option>
+                        <option value="2">Fax</option>
+                        <option value="3">Phone</option>
+                    </select>
+                </label>
+            </fieldset>
+            <fieldset>
+                <h2>Additional Information</h2>
+                <label for="gift">
+                    Choose a gift:
+                    <input id="gift-card" type="radio" name="gift" class="inline" />Gift Card
+                    <input id="tesla" type="radio" name="gift" class="inline" />Tesla
+                </label>
+                <label for="bio">
+                    Provide a bio:
+                    <textarea placeholder="I like coding on the beach..." rows="5"></textarea>
+                </label>
+            </fieldset>
+            <input type="submit" value="Submit" />
+        </form>
+    </body>
+</html>
