@@ -23,13 +23,16 @@
                     <input id="number" type="number" placeholder="Age">
                 </label>
                 <label for="dropdown" id="dropdown-label">
-                    Contact Info
+                    Social Media
                     <select id="dropdown">
                         <option value="">Select one</option>
-                        <option value="1">Mail</option>
-                        <option value="2">Fax</option>
-                        <option value="3">Phone</option>
+                        <option value="Facebook">Facebook</option>
+                        <option value="Instagram">Instagram</option>
+                        <option value="Twitter">Twitter</option>
                     </select>
+                </label>
+                <label for="social-media" id="social-media-label">
+                    <input id="social-media" type="hidden"></input>
                 </label>
             </fieldset>
             <fieldset>
@@ -44,7 +47,22 @@
                     <textarea placeholder="I like coding on the beach..." rows="5"></textarea>
                 </label>
             </fieldset>
-            <input type="submit" value="Submit" />
+            <input id="submitButton" type="submit" value="Submit" />
         </form>
+
+        <script>
+            dropdown.onchange = (event) => {
+                const dropdownValue = document.getElementById("dropdown").value;
+                const socialMediaInput = document.getElementById("social-media");
+                
+                socialMediaInput.type = "text";
+                socialMediaInput.placeholder = `Enter ${dropdownValue} profile`;
+            };
+
+            submitButton.onclick = (event) => {
+                const name = document.getElementById("name").value;
+                alert(`Thank you ${name}!`);
+            };
+        </script>
     </body>
 </html>
