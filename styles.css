@@ -15,6 +15,18 @@ h1 {
     text-align: center;
 }
 
+.tab button {
+    background-color: inherit;
+    color: inherit;
+    cursor: pointer;
+    border: none;
+    transition: 0.3s;
+}
+
+.tab button:hover, button.active {
+    background-color: #1b1b32;
+}
+
 form {
     width: 60vw;
     max-width: 500px;
@@ -52,3 +64,5 @@ input[type="submit"] {
     padding: 0.5rem;
     color: inherit;
 }
+
+.invalid { border-color: red; }

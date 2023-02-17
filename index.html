@@ -2,67 +2,121 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
-        <title>Survey Form</title>
+        <title>Basic Website</title>
         <link rel="stylesheet" href="styles.css" />
     </head>
     <body>
-        <h1 id="title">Survey Form</h1>
-        <form id="survey-form">
-            <fieldset>
-                <h2>General Information</h2>
-                <label for="name" id="name-label">
-                    Name
-                    <input id="name" type="text" placeholder="Enter your name">
-                </label>
-                <label for="email" id="email-label">
-                    Email
-                    <input id="email" type="email" placeholder="Enter your email">
-                </label>
-                <label for="number" id="number-label">
-                    Age (optional)
-                    <input id="number" type="number" placeholder="Age">
-                </label>
-                <label for="dropdown" id="dropdown-label">
-                    Social Media
-                    <select id="dropdown">
-                        <option value="">Select one</option>
-                        <option value="Facebook">Facebook</option>
-                        <option value="Instagram">Instagram</option>
-                        <option value="Twitter">Twitter</option>
-                    </select>
-                </label>
-                <label for="social-media" id="social-media-label">
-                    <input id="social-media" type="hidden"></input>
-                </label>
-            </fieldset>
-            <fieldset>
-                <h2>Additional Information</h2>
-                <label for="gift">
-                    Choose a gift:
-                    <input id="gift-card" type="radio" name="gift" class="inline" />Gift Card
-                    <input id="tesla" type="radio" name="gift" class="inline" />Tesla
-                </label>
-                <label for="bio">
-                    Provide a bio:
-                    <textarea placeholder="I like coding on the beach..." rows="5"></textarea>
-                </label>
-            </fieldset>
-            <input id="submitButton" type="submit" value="Submit" />
-        </form>
-
+        <div class="tab">
+            <button class="tablink" onclick="openTab(event,'Registration')">Registration</button>
+            <button class="tablink" onclick="openTab(event,'Users')">Users</button>
+        </div>
+        <div id="Registration" class="tabcontent">
+            <h1 id="title">Registration</h1>
+            <form id="form">
+                <fieldset>
+                    <h2>General Information</h2>
+                    <label for="name" id="name-label">
+                        Name
+                        <input id="name" type="text" placeholder="Enter your name" class="required">
+                    </label>
+                    <label for="email" id="email-label">
+                        Email
+                        <input id="email" type="email" placeholder="Enter your email" class="required">
+                    </label>
+                    <label for="number" id="number-label">
+                        Age (optional)
+                        <input id="number" type="number" placeholder="Age">
+                    </label>
+                    <label for="dropdown" id="dropdown-label">
+                        Social Media
+                        <select id="dropdown">
+                            <option value="">Select one</option>
+                            <option value="Facebook">Facebook</option>
+                            <option value="Instagram">Instagram</option>
+                            <option value="Twitter">Twitter</option>
+                        </select>
+                    </label>
+                    <label for="social-media" id="social-media-label">
+                        <input id="social-media" type="hidden"></input>
+                    </label>
+                </fieldset>
+                <fieldset>
+                    <h2>Additional Information</h2>
+                    <label for="gift">
+                        Choose a gift:
+                        <input id="gift-card" type="radio" name="gift" class="inline" />Gift Card
+                        <input id="tesla" type="radio" name="gift" class="inline" />Tesla
+                    </label>
+                    <label for="bio">
+                        Provide a bio:
+                        <textarea placeholder="I like coding on the beach..." rows="5"></textarea>
+                    </label>
+                </fieldset>
+                <input id="submitButton" type="submit" value="Submit" />
+            </form>
+        </div>    
+        <div id="Users" class="tabcontent">
+        </div>
         <script>
-            dropdown.onchange = (event) => {
+            let requiredFields = document.getElementById("form").querySelectorAll("input.required");    
+            for(let i = 0; i < requiredFields.length; i++) {
+                requiredFields[i].addEventListener("focus", function() {
+                    if(this.classList.contains('invalid')) {
+                        this.classList.remove('invalid');
+                    }
+                })
+            }
+
+            dropdown.addEventListener("change", () => {
                 const dropdownValue = document.getElementById("dropdown").value;
                 const socialMediaInput = document.getElementById("social-media");
                 
-                socialMediaInput.type = "text";
-                socialMediaInput.placeholder = `Enter ${dropdownValue} profile`;
-            };
+                if(dropdownValue != "") {
+                    socialMediaInput.type = "text";
+                    socialMediaInput.placeholder = `${dropdownValue} profile`;
+                } else {
+                    socialMediaInput.type = "hidden";
+                }
+            });
 
-            submitButton.onclick = (event) => {
-                const name = document.getElementById("name").value;
-                alert(`Thank you ${name}!`);
-            };
+            submitButton.addEventListener("click", (event) => {
+                let requiredFiledMiss = false;
+                requiredFields = document.getElementById("form").querySelectorAll("input.required");
+                for(let i=0; i<requiredFields.length; i++) {
+                    if(requiredFields[i].value == "") {
+                        requiredFiledMiss = true;        
+                        requiredFields[i].classList.add('invalid');
+                    }
+                }
+
+                if(!requiredFiledMiss) {
+                    const name = document.getElementById("name").value;
+                    const email = document.getElementById("email").value;
+
+                    const allFields = document.getElementById("form").querySelectorAll("input");
+                    for(let i=0; i<allFields.length; i++) {
+                        allFields[i].value = "";
+                    }
+                    alert(`Thank you ${name}!`);
+                } else {
+                    event.preventDefault();
+                }
+            });
+
+            const openTab = (event, tabName) => {
+                const tabcontent = document.getElementsByClassName("tabcontent");
+                for (let i=0; i<tabcontent.length; i++) {
+                    tabcontent[i].style.display = "none";
+                }
+
+                const tablinks = document.getElementsByClassName("tablink");
+                for (let i=0; i<tablinks.length; i++) {
+                    tablinks[i].className = tablinks[i].className.replace(" active", "");
+                }
+                
+                document.getElementById(tabName).style.display = "block";
+                event.currentTarget.className += " active"
+            }
         </script>
     </body>
 </html>
