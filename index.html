@@ -17,11 +17,11 @@
                     <h2>General Information</h2>
                     <label for="name" id="name-label">
                         Name
-                        <input id="name" type="text" placeholder="Enter your name" class="required">
+                        <input id="name" type="text" placeholder="Enter your name" required>
                     </label>
                     <label for="email" id="email-label">
                         Email
-                        <input id="email" type="email" placeholder="Enter your email" class="required">
+                        <input id="email" type="email" placeholder="Enter your email" required>
                     </label>
                     <label for="number" id="number-label">
                         Age (optional)
@@ -62,14 +62,10 @@
                     <th>Name</th>
                     <th>Email</th>
                 </tr>
-                <tr>
-                    <td>Alfreds Futterkiste</td>
-                    <td>Maria Anders</td>
-                </tr>
             </table>
         </div>
         <script>
-            const requiredFields = document.getElementById("form").querySelectorAll("input.required");    
+            let requiredFields = document.getElementById("form").querySelectorAll("[required]");    
             for(let i = 0; i < requiredFields.length; i++) {
                 requiredFields[i].addEventListener("focus", function() {
                     if(this.classList.contains('invalid')) {
@@ -82,10 +78,10 @@
             const table = document.getElementById("table");
             for(let user of users) {
                 const nameTd = document.createElement("td");
-                nameTd.appendChild(document.createTextNode(user.name));
+                nameTd.appendChild(document.createTextNode(user));
 
                 const emailTd = document.createElement("td");
-                emailTd.appendChild(document.createTextNode(user.email));
+                emailTd.appendChild(document.createTextNode(localStorage[user]));
 
                 const tr = document.createElement("tr");
                 tr.appendChild(nameTd);
@@ -108,7 +104,7 @@
 
             submitButton.addEventListener("click", (event) => {
                 let requiredFiledMiss = false;
-                requiredFields = document.getElementById("form").querySelectorAll("input.required");
+                requiredFields = document.getElementById("form").querySelectorAll("[required]");
                 for(let i=0; i<requiredFields.length; i++) {
                     if(requiredFields[i].value == "") {
                         requiredFiledMiss = true;        
@@ -120,12 +116,6 @@
                     const name = document.getElementById("name").value;
                     const email = document.getElementById("email").value;
                     localStorage.setItem(name, email);
-
-                    const allFields = document.getElementById("form").querySelectorAll("input");
-                    for(let i=0; i<allFields.length; i++) {
-                        allFields[i].value = "";
-                    }
-                    alert(`Thank you ${name}!`);
                 } else {
                     event.preventDefault();
                 }

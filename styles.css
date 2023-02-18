@@ -36,6 +36,10 @@ table, form {
     background-color: rgba(27, 27, 50, 0.8);
 }
 
+th {
+    text-align: left;
+}
+
 fieldset {
     border: none;
 }
