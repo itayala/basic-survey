@@ -27,7 +27,7 @@ h1 {
     background-color: #1b1b32;
 }
 
-form {
+table, form {
     width: 60vw;
     max-width: 500px;
     min-width: 300px;

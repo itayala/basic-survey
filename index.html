@@ -55,16 +55,43 @@
                 <input id="submitButton" type="submit" value="Submit" />
             </form>
         </div>    
-        <div id="Users" class="tabcontent">
+        <div id="Users" class="tabcontent" style="display: none;">
+            <h1 id="title">Users</h1>
+            <table id="table">
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                </tr>
+                <tr>
+                    <td>Alfreds Futterkiste</td>
+                    <td>Maria Anders</td>
+                </tr>
+            </table>
         </div>
         <script>
-            let requiredFields = document.getElementById("form").querySelectorAll("input.required");    
+            const requiredFields = document.getElementById("form").querySelectorAll("input.required");    
             for(let i = 0; i < requiredFields.length; i++) {
                 requiredFields[i].addEventListener("focus", function() {
                     if(this.classList.contains('invalid')) {
                         this.classList.remove('invalid');
                     }
                 })
+            }
+
+            const users = Object.keys(localStorage);
+            const table = document.getElementById("table");
+            for(let user of users) {
+                const nameTd = document.createElement("td");
+                nameTd.appendChild(document.createTextNode(user.name));
+
+                const emailTd = document.createElement("td");
+                emailTd.appendChild(document.createTextNode(user.email));
+
+                const tr = document.createElement("tr");
+                tr.appendChild(nameTd);
+                tr.appendChild(emailTd);
+
+                table.append(tr)
             }
 
             dropdown.addEventListener("change", () => {
@@ -92,6 +119,7 @@
                 if(!requiredFiledMiss) {
                     const name = document.getElementById("name").value;
                     const email = document.getElementById("email").value;
+                    localStorage.setItem(name, email);
 
                     const allFields = document.getElementById("form").querySelectorAll("input");
                     for(let i=0; i<allFields.length; i++) {
